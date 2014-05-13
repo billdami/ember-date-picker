@@ -1,0 +1,27 @@
+# bower
+bower_components
+
+# node
+node_modules
+
+# sublime text
+*.sublime-workspace
+*.sublime-project
+
+# windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# osx
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+._*
+Icon
+
+# temporary files
+tmp

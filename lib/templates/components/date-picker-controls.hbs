@@ -1,0 +1,26 @@
+<div class="datepicker-controls-inner">
+    <div class="datepicker-toolbar datepicker-clearfix">
+        <button class="btn btn-default datepicker-btn datepicker-btn-today datepicker-left" {{action "today"}}>{{i18n.today}}</button>
+        <button class="btn btn-primary datepicker-btn datepicker-btn-done datepicker-right" {{action "done"}}>{{i18n.done}}</button>
+        <button class="btn btn-default datepicker-btn datepicker-btn-clear datepicker-right" {{action "clear"}}>{{i18n.clear}}</button>
+    </div>
+    <div class="datepicker-cols-ct">
+        <div class="datepicker-cols datepicker-clearfix">
+            <div class="datepicker-col datepicker-col-month">
+                {{#date-picker-col-button dateProperty="month" direction="decrement"}}&#9650;{{/date-picker-col-button}}
+                {{date-picker-col-input dateProperty="month" value=monthDisplay}}
+                {{#date-picker-col-button dateProperty="month" direction="increment"}}&#9660;{{/date-picker-col-button}}
+            </div>
+            <div class="datepicker-col datepicker-col-day">
+                {{#date-picker-col-button dateProperty="day" direction="decrement"}}&#9650;{{/date-picker-col-button}}
+                {{date-picker-col-input dateProperty="day" value=dayDisplay}}
+                {{#date-picker-col-button dateProperty="day" direction="increment"}}&#9660;{{/date-picker-col-button}}
+            </div>
+            <div class="datepicker-col datepicker-col-year">
+                {{#date-picker-col-button dateProperty="year" direction="decrement"}}&#9650;{{/date-picker-col-button}}
+                {{date-picker-col-input dateProperty="year" value=yearDisplay}}
+                {{#date-picker-col-button dateProperty="year" direction="increment"}}&#9660;{{/date-picker-col-button}}
+            </div>
+        </div>
+    </div>
+</div>
