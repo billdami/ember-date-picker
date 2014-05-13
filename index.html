@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>ember-date-picker, A lightweight, mobile-optimized, date picker component for ember.js applications.</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Bill Dami" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="HandheldFriendly" content="True">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" media="all">
+        <link rel="stylesheet" href="//rawgit.com/billdami/ember-date-picker/master/dist/ember-date-picker.min.css" media="all">
+        <style type="text/css">
+            #demo {
+                max-width: 450px;
+                margin: 40px auto 40px auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>ember-date-picker</h1>
+            <h3>A lightweight, mobile-optimized, date picker component for ember.js applications.</h3>
+            <p>
+                <a href="https://github.com/billdami/ember-date-picker" class="btn btn-default btn-lg">View it on GitHub</a>
+            </p>
+            <div id="demo"></div>
+        </div>
+
+        <script type="text/x-handlebars">
+            <p>
+                {{date-picker-input controls="demo-datepicker" value=selectedDate onUpdate="dateUpdated" class="form-control" placeholder="Select a date..." dateFormat="MM d, yy"}}
+            </p>
+            <div class="well">Selected date: <strong>{{selectedDate}}</strong></div>
+            {{date-picker-controls id="demo-datepicker" maxYear="+50" minYear="-10"}}
+        </script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/ember.js/1.5.1/ember.min.js"></script>
+        <script src="//rawgit.com/billdami/ember-date-picker/master/dist/ember-date-picker.min.js"></script>
+        <script>
+            var App = Ember.Application.create({
+                rootElement: '#demo'
+            });
+
+            App.ApplicationController = Ember.ObjectController.extend({
+                selectedDate: 'May 4, 2014',
+
+                actions: {
+                    dateUpdated: function(date) {
+                        console.log('date updated to: ' + date);
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
