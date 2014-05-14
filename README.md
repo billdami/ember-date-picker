@@ -47,7 +47,7 @@ The `controls` parameter of the `{{date-picker-input}}` must reference the `id` 
   Since `{{date-picker-input}}` renders a regular text input element, any valid HTML attribute (e.g. `value`,  `class`, `placeholder`, ect) may be provided.
 * **controls** (string, required)  
   The `id` of the `{{date-picker-controls}}` component that the input is associated with.
-* **dateFormat** (string, default: `"MM, d, yy"`)  
+* **dateFormat** (string, default: `"MM d, yy"`)  
   The format for parsed and displayed dates (i.e. the `value` attribute's value). Note that if a non-blank `value` is provided to `{{date-picker-input}}` by your application, it **must** match `dateFormat`, or it will not be able to parse the provided value. See the "Date Formats" section below for a list of the possible format options.
 * **minYear** (int|string|bool, default: `false`)  
   The minimum selectable year. When set to `false`, there is no minimum year. A string value may be provided to specify a year relative to the current date (e.g. `"-10"`, or `"+25"`).
@@ -81,7 +81,7 @@ The `controls` parameter of the `{{date-picker-input}}` must reference the `id` 
     ]
   }
   ```
-* **dateFormat** (string, default: `"MM, d, yy"`)  
+* **dateFormat** (string, default: `"MM d, yy"`)  
   The default date format for the `{{date-picker-controls}}` component. If an associated `{{date-picker-input}}` specifies its own `dateFormat`, it will override this setting while that input is active.
 * **minYear** (int|string|bool, default: `false`)  
   The default minimum year for the `{{date-picker-controls}}` component. If an associated `{{date-picker-input}}` specifies its own `minYear`, it will override this setting while that input is active.
