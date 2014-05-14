@@ -24,9 +24,9 @@ Features
 Installation
 ------------
 
-Add `dist/ember-date-picker.min.js` and `dist/ember-date-picker.min.css` to your application's javascript and css assets respectively.
-
-Or if you use LESS, you can import `lib/styles/ember-date-picker.less`, especially if you intend to customize the component's styles.
+1. `bower install ember-date-picker` or grab the files in `dist/`.
+2. Add `dist/ember-date-picker.min.js` to your application's javascript assets.
+3. Add `dist/ember-date-picker.min.css` to your application's css assets. Or if you use LESS, and intend to customize the component's styles, you can import `lib/styles/ember-date-picker.less`.
 
 Usage
 -----
@@ -63,7 +63,7 @@ The `controls` parameter of the `{{date-picker-input}}` must reference the `id` 
   A unique identifier that `{{date-picker-input}}` uses to associate with the component via its `controls` parameter.
 * **i18n** (object)  
   Localized text strings for the controls UI. If provided, this parameter must match exactly the structure of the default i18n object below:  
-  
+
   ```
   {
     done: "Done",
