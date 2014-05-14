@@ -53,6 +53,7 @@
 
         handleMouseWheel: function(e) {
             this.get('parentView').adjustProperty(this.get('dateProperty'), this.mouseWheelDirection(e));
+            e.preventDefault();
         },
 
         mouseWheelDirection: function(event) {
