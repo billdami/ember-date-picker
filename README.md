@@ -61,6 +61,7 @@ The `controls` parameter of the `{{date-picker-input}}` must reference the `id` 
   A unique identifier that `{{date-picker-input}}` uses to associate with the component via its `controls` parameter.
 * **i18n** (object)  
   Localized text strings for the controls UI. If provided, this parameter must match exactly the structure of the default i18n object below:  
+  
   ```
   {
     done: "Done",
