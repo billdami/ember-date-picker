@@ -53,7 +53,7 @@ The `controls` parameter of the `{{date-picker-input}}` must reference the `id` 
   The minimum selectable year. When set to `false`, there is no minimum year. A string value may be provided to specify a year relative to the current date (e.g. `"-10"`, or `"+25"`).
 * **maxYear** (int|string|bool, default: `false`)  
   The maximum selectable year. When set to `false`, there is no maximum year. A string value may be provided to specify a year relative to the current date (e.g. `"-10"`, or `"+25"`).
-* **onUpdate** (string)
+* **onUpdate** (string)  
   The name of an action to send when the input's value has been updated. The new value is sent as the action's only parameter.
 
 `{{date-picker-controls}}` Parameters
