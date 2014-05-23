@@ -43,8 +43,7 @@ js = concat(mergeTrees([cmp, templates]), {
 css = compileLess(
     [stylesTree], 
     'ember-date-picker.less', 
-    'ember-date-picker.css', 
-    {compress: false}
+    'ember-date-picker.css'
 );
 
 //create minified versions for production
@@ -61,7 +60,7 @@ if(env === 'production') {
         [stylesTree], 
         'ember-date-picker.less', 
         'ember-date-picker.min.css', 
-        {compress: true}
+        {cleancss: true}
     );
 }
 

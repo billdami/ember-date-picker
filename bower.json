@@ -1,6 +1,6 @@
 {
   "name": "ember-date-picker",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A lightweight, mobile-optimized, date picker component for ember.js applications.",
   "author": "Bill Dami <billdami@gmail.com>",
   "license": "MIT",
@@ -12,5 +12,9 @@
     "handlebars": "1.3.0",
     "ember": "~1.5.0",
     "qunit": "~1.14.0"
+  },
+  "dependencies": {
+    "ember-spin-box": "~0.0.2",
+    "momentjs": "~2.6.0"
   }
 }

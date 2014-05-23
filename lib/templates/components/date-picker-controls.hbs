@@ -7,19 +7,13 @@
     <div class="datepicker-cols-ct">
         <div class="datepicker-cols datepicker-clearfix">
             <div class="datepicker-col datepicker-col-month">
-                {{#date-picker-col-button dateProperty="month" direction="decrement"}}&#9650;{{/date-picker-col-button}}
-                {{date-picker-col-input dateProperty="month" value=monthDisplay}}
-                {{#date-picker-col-button dateProperty="month" direction="increment"}}&#9660;{{/date-picker-col-button}}
+                {{spin-box content=months value=_currentMonth onUpdate="spinBoxUpdate" rowHeight=32 tabindex=1}}
             </div>
             <div class="datepicker-col datepicker-col-day">
-                {{#date-picker-col-button dateProperty="day" direction="decrement"}}&#9650;{{/date-picker-col-button}}
-                {{date-picker-col-input dateProperty="day" value=dayDisplay}}
-                {{#date-picker-col-button dateProperty="day" direction="increment"}}&#9660;{{/date-picker-col-button}}
+                {{spin-box content=days value=_currentDay onUpdate="spinBoxUpdate" rowHeight=32 tabindex=2}}
             </div>
             <div class="datepicker-col datepicker-col-year">
-                {{#date-picker-col-button dateProperty="year" direction="decrement"}}&#9650;{{/date-picker-col-button}}
-                {{date-picker-col-input dateProperty="year" value=yearDisplay}}
-                {{#date-picker-col-button dateProperty="year" direction="increment"}}&#9660;{{/date-picker-col-button}}
+                {{spin-box range=years value=_currentYear onUpdate="spinBoxUpdate" rowHeight=32 tabindex=3}}
             </div>
         </div>
     </div>
