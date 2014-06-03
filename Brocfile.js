@@ -9,33 +9,28 @@ var env = require('broccoli-env').getEnv(),
     sourceTree = 'lib',
     templatesTree = 'lib/templates',
     stylesTree = 'lib/styles',
-    cmp,
     templates,
     js,
     css,
     prodJs,
     prodCss;
 
-cmp = concat(sourceTree, {
-    inputFiles: [
-        'components/**/*.js'
-    ],
-    outputFile: '/components.js'
-});
-
 templates = buildTemplates(templatesTree, {
     extensions: ['hbs'],
     outputFile: 'templates.js',
     namespace: 'Ember.TEMPLATES',
     compile: function(string) {
-        return 'Ember.Handlebars.compile(' + JSON.stringify(string) + ')';
+        return 'Ember.Handlebars.template(' + compileTemplates.precompile(string) + ')';
     }
 });
 
-js = concat(mergeTrees([cmp, templates]), {
+js = concat(mergeTrees([templates, sourceTree]), {
     inputFiles: [
-        'components.js',
-        'templates.js'
+        'components/**/*.js',
+        'templates-top.js',
+        'templates.js',
+        'templates-bottom.js',
+        'main.js'
     ],
     outputFile: '/ember-date-picker.js'
 });
@@ -48,10 +43,13 @@ css = compileLess(
 
 //create minified versions for production
 if(env === 'production') {
-    prodJs = uglifyJs(concat(mergeTrees([cmp, templates]), {
+    prodJs = uglifyJs(concat(mergeTrees([templates, sourceTree]), {
         inputFiles: [
-            'components.js',
-            'templates.js'
+            'components/**/*.js',
+            'templates-top.js',
+            'templates.js',
+            'templates-bottom.js',
+            'main.js'
         ],
         outputFile: '/ember-date-picker.min.js'
     }));
