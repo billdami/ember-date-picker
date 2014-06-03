@@ -141,6 +141,9 @@
   width: 40%;
   text-align: left;
 }
+.datepicker-col .spinbox-selection-window {
+  height: 32px;
+}
 @media (max-width: 480px) {
   .datepicker-controls {
     overflow: hidden;

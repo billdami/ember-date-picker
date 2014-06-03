@@ -1,9 +1,8 @@
 /**
  * initial component properties
  * value: "May 15, 2014"
- * dateFormat: "MM d, yy"
+ * dateFormat: "MMMM D, YYYY"
  */
-
 module('Controls toggling', {
     setup: function() {
         App.reset();
@@ -43,9 +42,9 @@ test('controls display the current date value', function() {
     
     andThen(function() {
         equal(
-            find('input.datepicker-col-input-month').val() + ' ' +
-                find('input.datepicker-col-input-day').val() + ', ' +
-                find('input.datepicker-col-input-year').val(), 
+            find('.datepicker-col-month .spinbox-row.selected').text() + ' ' +
+            find('.datepicker-col-day .spinbox-row.selected').text() + ', ' +
+            find('.datepicker-col-year .spinbox-row.selected').text(), 
             'May 15, 2014'
         );
     });
@@ -61,128 +60,12 @@ test('clicking "Today" button sets current date as the selected date', function(
 
     andThen(function() {
         equal(
-            find('input.datepicker-col-input-month').val() + ' ' +
-                find('input.datepicker-col-input-day').val() + ', ' +
-                find('input.datepicker-col-input-year').val(), 
+            find('.datepicker-col-month .spinbox-row.selected').text() + ' ' +
+            find('.datepicker-col-day .spinbox-row.selected').text() + ', ' +
+            find('.datepicker-col-year .spinbox-row.selected').text(), 
             currentDate
         );
     });
-});
-
-test('clicking month decrement button selects previous month', function() {
-    expect(1);
-    click('.datepicker-col-month button.datepicker-col-btn:eq(0)');
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-month').val(), 'April');
-    });
-});
-
-test('clicking month increment button selects the next month', function() {
-    expect(1);
-    click('.datepicker-col-month button.datepicker-col-btn:eq(1)');
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-month').val(), 'June');
-    });
-});
-
-test('pressing up arrow on month input selects previous month', function() {
-    expect(1);
-    keyEvent('input.datepicker-col-input-month', 'keydown', 38);
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-month').val(), 'April');
-    });
-});
-
-test('pressing down arrow on month input selects next month', function() {
-    expect(1);
-    keyEvent('input.datepicker-col-input-month', 'keydown', 40);
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-month').val(), 'June');
-    });
-});
-
-test('clicking day decrement button selects previous day', function() {
-    expect(1);
-    click('.datepicker-col-day button.datepicker-col-btn:eq(0)');
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-day').val(), '14');
-    });
-});
-
-test('clicking day increment button selects the next day', function() {
-    expect(1);
-    click('.datepicker-col-day button.datepicker-col-btn:eq(1)');
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-day').val(), '16');
-    });
-});
-
-test('pressing up arrow on day input selects previous day', function() {
-    expect(1);
-    keyEvent('input.datepicker-col-input-day', 'keydown', 38);
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-day').val(), '14');
-    });
-});
-
-test('pressing down arrow on day input selects next day', function() {
-    expect(1);
-    keyEvent('input.datepicker-col-input-day', 'keydown', 40);
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-day').val(), '16');
-    });
-});
-
-test('clicking year decrement button selects previous year', function() {
-    expect(1);
-    click('.datepicker-col-year button.datepicker-col-btn:eq(0)');
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-year').val(), '2013');
-    });
-});
-
-test('clicking year increment button selects the next year', function() {
-    expect(1);
-    click('.datepicker-col-year button.datepicker-col-btn:eq(1)');
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-year').val(), '2015');
-    });
-});
-
-test('pressing up arrow on year input selects previous year', function() {
-    expect(1);
-    keyEvent('input.datepicker-col-input-year', 'keydown', 38);
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-year').val(), '2013');
-    });
-});
-
-test('pressing down arrow on year input selects next year', function() {
-    expect(1);
-    keyEvent('input.datepicker-col-input-year', 'keydown', 40);
-
-    andThen(function() {
-        equal(find('input.datepicker-col-input-year').val(), '2015');
-    });
-});
-
-module('Date update', {
-    setup: function() {
-        App.reset();
-        visit('/');
-        openControls();
-    }
 });
 
 test('clicking "Clear" button clears the input\'s value', function() {
@@ -194,15 +77,18 @@ test('clicking "Clear" button clears the input\'s value', function() {
     });
 });
 
-test('changing the selected date and clicking "Done" button updates the input\'s value', function() {
+test('Changing the spin box values updates the input\'s value', function() {
     expect(1);
-    click('.datepicker-col-month button.datepicker-col-btn:eq(1)');
-    click('.datepicker-col-day button.datepicker-col-btn:eq(1)');
-    click('.datepicker-col-year button.datepicker-col-btn:eq(1)');
-    click('button.datepicker-btn-done');
+    click('.datepicker-col-month .spinbox-row:nth-of-type(5)');
+    click('.datepicker-col-day .spinbox-row:nth-of-type(5)');
+    click('.datepicker-col-year .spinbox-row:nth-of-type(5)');
+
 
     andThen(function() {
-        equal(find('input.datepicker-input').val(), 'June 16, 2015');
+        equal(
+            find('input.datepicker-input').val(), 
+            'June 16, 2015'
+        );
     });
 });
 

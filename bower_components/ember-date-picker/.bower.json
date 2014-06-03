@@ -1,6 +1,6 @@
 {
   "name": "ember-date-picker",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A lightweight, mobile-optimized, date picker component for ember.js applications.",
   "author": "Bill Dami <billdami@gmail.com>",
   "license": "MIT",
@@ -14,15 +14,15 @@
     "qunit": "~1.14.0"
   },
   "dependencies": {
-    "ember-spin-box": "~0.0.2",
+    "ember-spin-box": "~0.0.5",
     "momentjs": "~2.6.0"
   },
   "homepage": "https://github.com/billdami/ember-date-picker",
-  "_release": "0.0.3",
+  "_release": "0.0.4",
   "_resolution": {
     "type": "version",
-    "tag": "v0.0.3",
-    "commit": "c334dd1c9a49939c40a6ab583aed388dd02f9c54"
+    "tag": "v0.0.4",
+    "commit": "98cbfd9a1a48eaadd6e22ee89039a2a28e96d562"
   },
   "_source": "git://github.com/billdami/ember-date-picker.git",
   "_target": "~0.0.3",

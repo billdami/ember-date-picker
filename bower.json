@@ -7,7 +7,7 @@
     "**/.*"
   ],
   "dependencies": {
-    "ember-date-picker": "~0.0.3",
+    "ember-date-picker": "~0.0.4",
     "momentjs": "~2.6.0"
   }
 }

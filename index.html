@@ -13,28 +13,28 @@
         <link rel="stylesheet" href="demo.css" media="all" />
     </head>
     <body>
-        <div class="container">
-            <h1>ember-date-picker</h1>
-            <hr />
-            <h3>A lightweight, mobile-optimized, date picker component for ember.js applications.</h3>
-            <p>
-                <a href="https://github.com/billdami/ember-date-picker" class="btn btn-default">View it on GitHub</a>
-            </p>
-            <div id="demo"></div>
-            <ul>
-                <li>Lightweight (~4k javascript / ~1k css, minified and gzipped, including dependencies)</li>
-                <li>Spin box style UI for fast date selection (built using <a href="https://github.com/billdami/ember-spin-box">ember-spin-box</a>)</li>
-                <li>Supports mousewheel, keyboard, and touch-based control</li>
-                <li>Mobile-optimized slide-up panel UI on small screens (480px width and below)</li>
-                <li>i18n/i10n support</li>
-                <li>Optional integration with <a href="http://momentjs.com/">moment.js</a></li>
-                <li>Works well with Bootstrap 3</li>
-            </ul>
-        </div>
-
         <script type="text/x-handlebars">
-            {{date-picker-input controls="demo-datepicker" value=selectedDate class="form-control" placeholder="Select a date..." dateFormat="MMMM Do, YYYY"}}
-            {{date-picker-controls id="demo-datepicker" maxYear="+50" minYear="-100"}}
+            <div class="container">
+                <h1>ember-date-picker</h1>
+                <hr />
+                <h3>A lightweight, mobile-optimized, date picker component for ember.js applications.</h3>
+                <p>
+                    <a href="https://github.com/billdami/ember-date-picker" class="btn btn-default">View it on GitHub</a>
+                </p>
+                <div id="demo">
+                    {{date-picker-input controls="demo-datepicker" value=selectedDate class="form-control" placeholder="Select a date..." dateFormat="MMMM Do, YYYY"}}
+                    {{date-picker-controls id="demo-datepicker" maxYear="+50" minYear="-100"}}
+                </div>
+                <ul>
+                    <li>Lightweight (~4k javascript / ~1k css, minified and gzipped, including dependencies)</li>
+                    <li>Spin box style UI for fast date selection (built using <a href="https://github.com/billdami/ember-spin-box">ember-spin-box</a>)</li>
+                    <li>Supports mousewheel, keyboard, and touch-based control</li>
+                    <li>Mobile-optimized slide-up panel UI on small screens (480px width and below)</li>
+                    <li>i18n/i10n support</li>
+                    <li>Optional integration with <a href="http://momentjs.com/">moment.js</a></li>
+                    <li>Works well with Bootstrap 3</li>
+                </ul>
+            </div>  
         </script>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
@@ -44,8 +44,7 @@
         <script src="bower_components/ember-spin-box/dist/ember-spin-box.min.js"></script>
         <script src="bower_components/ember-date-picker/dist/ember-date-picker.min.js"></script>
         <script>
-            var App = Ember.Application.create({rootElement: '#demo'});
-
+            var App = Ember.Application.create();
             App.ApplicationController = Ember.ObjectController.extend({
                 selectedDate: ''
             });

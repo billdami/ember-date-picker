@@ -1,4 +1,13 @@
-(function(root) {
+(function(root, factory) {
+    if(typeof define === 'function' && define.amd) {
+        define(['ember'], function(Ember) { return factory(Ember); });
+    } else if(typeof exports === 'object') {
+        module.exports = factory(require('ember'));
+    } else {
+        root.DatePickerControlsComponent = factory(Ember);
+    }
+})(this, function(Ember) {
+
     var DatePickerControlsComponent = Ember.Component.extend({
         classNames: ['datepicker-controls'],
         classNameBindings: ['_isOpen:shown', '_animate:animate'],
@@ -32,10 +41,10 @@
         setConfig: function() {
             //sanity check provided settings/set defaults where necessary
             var config = {};
-            if(Em.isEmpty(this.get('minYear'))) config.minYear = this.get('_defaults.minYear');
-            if(Em.isEmpty(this.get('maxYear'))) config.maxYear = this.get('_defaults.maxYear');
-            if(Em.isBlank(this.get('dateFormat'))) config.dateFormat = this.get('_defaults.dateFormat');
-            if(Em.isEmpty(this.get('i18n'))) config.i18n = this.get('_defaults.i18n');
+            if(Ember.isEmpty(this.get('minYear'))) config.minYear = this.get('_defaults.minYear');
+            if(Ember.isEmpty(this.get('maxYear'))) config.maxYear = this.get('_defaults.maxYear');
+            if(Ember.isBlank(this.get('dateFormat'))) config.dateFormat = this.get('_defaults.dateFormat');
+            if(Ember.isEmpty(this.get('i18n'))) config.i18n = this.get('_defaults.i18n');
 
             //allow relative minYear/maxYear values to the current year (e.g. "-100", "+50")
             config.minYear = this.convertRelativeYear(this.get('minYear'));
@@ -46,17 +55,17 @@
 
         setup: function() {
             this.$el = this.$();
-            Em.$(document).on('click.date-picker-events', Em.run.bind(this, this.handleDocClick));
+            Ember.$(document).on('click.date-picker-events', Ember.run.bind(this, this.handleDocClick));
         }.on('didInsertElement'),
 
         teardown: function() {
-            Em.$(document).off('.date-picker-events');
+            Ember.$(document).off('.date-picker-events');
         }.on('willDestroyElement'),
 
         handleDocClick: function(e) {
             if(this.get('_currentTarget') && 
                 e.target !== this.get('_currentTarget').$el.get(0) && 
-                !Em.$.contains(this.$el.get(0), e.target)) {
+                !Ember.$.contains(this.$el.get(0), e.target)) {
                 this.closePicker();
             }
         },
@@ -124,7 +133,7 @@
             this.setProperties({
                 inputMinYear: typeof target.get('minYear') !== 'undefined' ? this.convertRelativeYear(target.get('minYear')) : undefined,
                 inputMaxYear: typeof target.get('maxYear') !== 'undefined' ? this.convertRelativeYear(target.get('maxYear')) : undefined,
-                inputDateFormat : !Em.isBlank(target.get('dateFormat')) ? target.get('dateFormat') : undefined
+                inputDateFormat : !Ember.isBlank(target.get('dateFormat')) ? target.get('dateFormat') : undefined
             });
 
             try {
@@ -136,7 +145,7 @@
             this.setCurrentValue(date);
             this.positionPicker(target.$el);
             this.set('_isOpen', true);
-            Em.run.next(this, function() {
+            Ember.run.next(this, function() {
                 this.set('_animate', true);
             });
         },
@@ -147,7 +156,7 @@
                 _currentTarget: false
             });
 
-            Em.run.later(this, function() {
+            Ember.run.later(this, function() {
                 this.set('_isOpen', false);
             }, this.get('animateDuration'));
         },
@@ -195,7 +204,7 @@
                 _currentYear: date.getFullYear()
             });
 
-            Em.run.scheduleOnce('sync', this, function() {
+            Ember.run.scheduleOnce('sync', this, function() {
                 this.set('_currentDay', date.getDate());
                 if(updateValue) {
                     this.updateValue();
@@ -204,7 +213,7 @@
         },
 
         getConfig: function(prop) {
-            var inputProp = 'input' + Em.String.capitalize(prop);
+            var inputProp = 'input' + Ember.String.capitalize(prop);
             return this.get(typeof this.get(inputProp) !== 'undefined' ? inputProp : prop);
         },
 
@@ -224,7 +233,7 @@
         parseDate: function(dateString, format) {
             var date;
             if(this.get('hasMoment')) {
-                date = Em.isBlank(format) ? moment(dateString) : moment(dateString, format);
+                date = Ember.isBlank(format) ? moment(dateString) : moment(dateString, format);
                 date = !date.isValid() ? null : date.toDate();
             } else {
                 date = Date.parse(dateString);
@@ -237,9 +246,9 @@
         formatDate: function(date, format) {
             var formattedDate = null;
 
-            if(!Em.isNone(date)) {
+            if(!Ember.isNone(date)) {
                 formattedDate = this.get('hasMoment') ?
-                    moment(date).format(Em.isBlank(format) ? 'l' : format) :
+                    moment(date).format(Ember.isBlank(format) ? 'l' : format) :
                     date.toLocaleDateString();
             }
 
@@ -271,9 +280,18 @@
         }
     });
 
-    Ember.Handlebars.helper('date-picker-controls', DatePickerControlsComponent);
-})(this);
-(function(root) {
+    return DatePickerControlsComponent;
+});
+(function(root, factory) {
+    if(typeof define === 'function' && define.amd) {
+        define(['ember'], function(Ember) { return factory(Ember); });
+    } else if(typeof exports === 'object') {
+        module.exports = factory(require('ember'));
+    } else {
+        root.DatePickerInputComponent = factory(Ember);
+    }
+})(this, function(Ember) {
+    
     var DatePickerInputComponent = Ember.Component.extend({
         tagName: 'input',
         attributeBindings: ['type', 'value', 'readonly', 'placeholder'],
@@ -307,6 +325,104 @@
         }.on('keyDown')
     });
 
-    Ember.Handlebars.helper('date-picker-input', DatePickerInputComponent);
-})(this);
-Ember.TEMPLATES["components/date-picker-controls"]=Ember.Handlebars.compile("<div class=\"datepicker-controls-inner\">\n    <div class=\"datepicker-toolbar datepicker-clearfix\">\n        <button class=\"btn btn-default datepicker-btn datepicker-btn-today datepicker-left\" {{action \"today\"}}>{{i18n.today}}</button>\n        <button class=\"btn btn-primary datepicker-btn datepicker-btn-done datepicker-right\" {{action \"done\"}}>{{i18n.done}}</button>\n        <button class=\"btn btn-default datepicker-btn datepicker-btn-clear datepicker-right\" {{action \"clear\"}}>{{i18n.clear}}</button>\n    </div>\n    <div class=\"datepicker-cols-ct\">\n        <div class=\"datepicker-cols datepicker-clearfix\">\n            <div class=\"datepicker-col datepicker-col-month\">\n                {{spin-box content=months value=_currentMonth onUpdate=\"spinBoxUpdate\" rowHeight=32 tabindex=1}}\n            </div>\n            <div class=\"datepicker-col datepicker-col-day\">\n                {{spin-box content=days value=_currentDay onUpdate=\"spinBoxUpdate\" rowHeight=32 tabindex=2}}\n            </div>\n            <div class=\"datepicker-col datepicker-col-year\">\n                {{spin-box range=years value=_currentYear onUpdate=\"spinBoxUpdate\" rowHeight=32 tabindex=3}}\n            </div>\n        </div>\n    </div>\n</div>");
+    return DatePickerInputComponent;
+});
+(function(root, factory) {
+    if(typeof define === 'function' && define.amd) {
+        define(['ember'], function(Ember) { return factory(Ember); });
+    } else if(typeof exports === 'object') {
+        factory(require('ember'));
+    } else {
+        factory(Ember);
+    }
+})(this, function(Ember) {
+
+
+Ember.TEMPLATES["components/date-picker-controls"]=Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
+  var buffer = '', stack1, helper, options, escapeExpression=this.escapeExpression, helperMissing=helpers.helperMissing;
+
+
+  data.buffer.push("<div class=\"datepicker-controls-inner\">\n    <div class=\"datepicker-toolbar datepicker-clearfix\">\n        <button class=\"btn btn-default datepicker-btn datepicker-btn-today datepicker-left\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "today", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">");
+  stack1 = helpers._triageMustache.call(depth0, "i18n.today", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</button>\n        <button class=\"btn btn-primary datepicker-btn datepicker-btn-done datepicker-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "done", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">");
+  stack1 = helpers._triageMustache.call(depth0, "i18n.done", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</button>\n        <button class=\"btn btn-default datepicker-btn datepicker-btn-clear datepicker-right\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "clear", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">");
+  stack1 = helpers._triageMustache.call(depth0, "i18n.clear", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("</button>\n    </div>\n    <div class=\"datepicker-cols-ct\">\n        <div class=\"datepicker-cols datepicker-clearfix\">\n            <div class=\"datepicker-col datepicker-col-month\">\n                ");
+  data.buffer.push(escapeExpression((helper = helpers['spin-box'] || (depth0 && depth0['spin-box']),options={hash:{
+    'content': ("months"),
+    'value': ("_currentMonth"),
+    'onUpdate': ("spinBoxUpdate"),
+    'rowHeight': (32),
+    'tabindex': (1)
+  },hashTypes:{'content': "ID",'value': "ID",'onUpdate': "STRING",'rowHeight': "INTEGER",'tabindex': "INTEGER"},hashContexts:{'content': depth0,'value': depth0,'onUpdate': depth0,'rowHeight': depth0,'tabindex': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "spin-box", options))));
+  data.buffer.push("\n            </div>\n            <div class=\"datepicker-col datepicker-col-day\">\n                ");
+  data.buffer.push(escapeExpression((helper = helpers['spin-box'] || (depth0 && depth0['spin-box']),options={hash:{
+    'content': ("days"),
+    'value': ("_currentDay"),
+    'onUpdate': ("spinBoxUpdate"),
+    'rowHeight': (32),
+    'tabindex': (2)
+  },hashTypes:{'content': "ID",'value': "ID",'onUpdate': "STRING",'rowHeight': "INTEGER",'tabindex': "INTEGER"},hashContexts:{'content': depth0,'value': depth0,'onUpdate': depth0,'rowHeight': depth0,'tabindex': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "spin-box", options))));
+  data.buffer.push("\n            </div>\n            <div class=\"datepicker-col datepicker-col-year\">\n                ");
+  data.buffer.push(escapeExpression((helper = helpers['spin-box'] || (depth0 && depth0['spin-box']),options={hash:{
+    'range': ("years"),
+    'value': ("_currentYear"),
+    'onUpdate': ("spinBoxUpdate"),
+    'rowHeight': (32),
+    'tabindex': (3)
+  },hashTypes:{'range': "ID",'value': "ID",'onUpdate': "STRING",'rowHeight': "INTEGER",'tabindex': "INTEGER"},hashContexts:{'range': depth0,'value': depth0,'onUpdate': depth0,'rowHeight': depth0,'tabindex': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "spin-box", options))));
+  data.buffer.push("\n            </div>\n        </div>\n    </div>\n</div>");
+  return buffer;
+  
+});
+
+});
+(function(root, factory) {
+    if(typeof define === 'function' && define.amd) {
+        define([
+            'ember',
+            './components/date-picker-controls.js',
+            './components/date-picker-input.js',
+        ], function(Ember, Controls, Input) { 
+            return factory(Ember, Controls, Input); 
+        });
+    } else if(typeof exports === 'object') {
+        module.exports = factory(
+            require('ember'),
+            require('./components/date-picker-controls.js'),
+            require('./components/date-picker-input.js')
+        );
+    } else {
+        factory(
+            Ember,
+            root.DatePickerControlsComponent,
+            root.DatePickerInputComponent
+        );
+    }
+})(this, function(Ember, Controls, Input) {
+
+    Ember.Application.initializer({
+        name: 'date-picker',
+        initialize: function(container, application) {
+            container.register('component:date-picker-controls', Controls);
+            container.register('component:date-picker-input', Input);
+        }
+    });
+
+    return {
+        DatePickerControls: Controls,
+        DatePickerInput: Input
+    };
+});
