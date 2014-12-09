@@ -1,65 +1,21 @@
-var env = require('broccoli-env').getEnv(),
-    mergeTrees = require('broccoli-merge-trees'),
-    pickFiles = require('broccoli-static-compiler'),
-    concat = require('broccoli-concat'),
-    uglifyJs = require('broccoli-uglify-js'),
-    compileLess = require('broccoli-less-single'),
-    buildTemplates = require('broccoli-template-builder'),
-    compileTemplates = require('ember-template-compiler'),
-    sourceTree = 'lib',
-    templatesTree = 'lib/templates',
-    stylesTree = 'lib/styles',
-    templates,
-    js,
-    css,
-    prodJs,
-    prodCss;
+/* jshint node: true */
+/* global require, module */
 
-templates = buildTemplates(templatesTree, {
-    extensions: ['hbs'],
-    outputFile: 'templates.js',
-    namespace: 'Ember.TEMPLATES',
-    compile: function(string) {
-        return 'Ember.Handlebars.template(' + compileTemplates.precompile(string) + ')';
-    }
-});
+var EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
-js = concat(mergeTrees([templates, sourceTree]), {
-    inputFiles: [
-        'components/**/*.js',
-        'templates-top.js',
-        'templates.js',
-        'templates-bottom.js',
-        'main.js'
-    ],
-    outputFile: '/ember-date-picker.js'
-});
+var app = new EmberAddon();
 
-css = compileLess(
-    [stylesTree], 
-    'ember-date-picker.less', 
-    'ember-date-picker.css'
-);
+// Use `app.import` to add additional libraries to the generated
+// output files.
+//
+// If you need to use different assets in different
+// environments, specify an object as the first parameter. That
+// object's keys should be the environment name and the values
+// should be the asset to use in that environment.
+//
+// If the library that you are including contains AMD or ES6
+// modules that you would like to import into your application
+// please specify an object with the list of modules as keys
+// along with the exports of each module as its value.
 
-//create minified versions for production
-if(env === 'production') {
-    prodJs = uglifyJs(concat(mergeTrees([templates, sourceTree]), {
-        inputFiles: [
-            'components/**/*.js',
-            'templates-top.js',
-            'templates.js',
-            'templates-bottom.js',
-            'main.js'
-        ],
-        outputFile: '/ember-date-picker.min.js'
-    }));
-
-    prodCss = compileLess(
-        [stylesTree], 
-        'ember-date-picker.less', 
-        'ember-date-picker.min.css', 
-        {cleancss: true}
-    );
-}
-
-module.exports = mergeTrees(env === 'production' ? [prodJs, prodCss, js, css] : [js, css]);
+module.exports = app.toTree();

@@ -1,7 +1,7 @@
 ember-date-picker
 =================
 
-A lightweight, mobile-optimized, date picker component for ember.js applications.
+A lightweight, mobile-optimized, date picker component for ember-cli applications.
 
 **DISCLAIMER:** This is beta software and has yet to be battle tested in a wide range of environments. As such, it should be used with caution in production apps. If you encounter any bugs or browser-specific anomalies, please submit an issue or a pull request. Thanks!
 
@@ -13,7 +13,6 @@ http://billdami.com/ember-date-picker/
 Features
 --------
 
-* Lightweight (~4k javascript / ~1k css, minified and gzipped, including dependencies)
 * Spin box style UI for fast date selection (built using [ember-spin-box](https://github.com/billdami/ember-spin-box)</a>)
 * Supports mousewheel, keyboard, and touch-based control
 * Mobile-optimized slide-up panel UI on small screens (480px width and below)
@@ -24,10 +23,9 @@ Features
 Installation
 ------------
 
-1. `bower install ember-date-picker` or grab the files in `dist/`.
-2. Install [ember-spin-box](https://github.com/billdami/ember-spin-box) dependency (will already be downloaded if you used bower on step 1)
-2. Add `dist/ember-date-picker.min.js` to your application's javascript assets.
-3. Add `dist/ember-date-picker.min.css` to your application's css assets. Or if you use LESS, and intend to customize the component's styles, you can import `lib/styles/ember-date-picker.less`.
+1. Add the following to your ember-cli-project in package.json `"ember-date-picker": "billdami/ember-date-picker"`.
+2. Run `npm install`.
+3. Run `ember g date-picker` to install the [ember-spin-box](https://github.com/billdami/ember-spin-box) dependency.
 4. **Optional:** Install [moment.js](http://momentjs.com/) to enable custom date format parsing/output.
 
 Usage
@@ -45,26 +43,26 @@ The `controls` parameter of the `{{date-picker-input}}` must reference the `id` 
 `{{date-picker-input}}` Parameters
 -------
 
-* **Any valid HTML text input element attribute**  
+* **Any valid HTML text input element attribute**
   Since `{{date-picker-input}}` renders a regular text input element, any valid HTML attribute (e.g. `value`,  `class`, `placeholder`, ect) may be provided.
-* **controls** (`string`, required)  
+* **controls** (`string`, required)
   The `id` of the `{{date-picker-controls}}` component that the input is associated with.
-* **dateFormat** (`string`)  
+* **dateFormat** (`string`)
   The format for parsed and displayed dates (i.e. the input's value). This parameter **will only be used if moment.js is installed**, otherwise the native [Date.parse()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse) and [Date.toLocaleDateString()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString) functions will be used to parse and format dates, respectively. See the [moment.js docs](http://momentjs.com/docs/#/parsing/string-format/) for all available formatting tokens.
-* **minYear** (`int|string|bool`, default: `false`)  
+* **minYear** (`int|string|bool`, default: `false`)
   The minimum selectable year. When set to `false`, there is no minimum year. A string value may be provided to specify a year relative to the current date (e.g. `"-10"`, or `"+25"`).
-* **maxYear** (`int|string|bool`, default: `false`)  
+* **maxYear** (`int|string|bool`, default: `false`)
   The maximum selectable year. When set to `false`, there is no maximum year. A string value may be provided to specify a year relative to the current date (e.g. `"-10"`, or `"+25"`).
-* **onUpdate** (`string`)  
+* **onUpdate** (`string`)
   The name of an action to send when the input's value has been updated. The new value is sent as the action's only parameter.
 
 `{{date-picker-controls}}` Parameters
 -------
 
-* **id** (`string`, required)  
+* **id** (`string`, required)
   A unique identifier that `{{date-picker-input}}` uses to associate with the component via its `controls` parameter.
-* **i18n** (`object`)  
-  Localized text strings for the controls UI. If provided, this parameter must match exactly the structure of the default i18n object below:  
+* **i18n** (`object`)
+  Localized text strings for the controls UI. If provided, this parameter must match exactly the structure of the default i18n object below:
 
   ```
   {
@@ -77,9 +75,34 @@ The `controls` parameter of the `{{date-picker-input}}` must reference the `id` 
     ]
   }
   ```
-* **dateFormat** (`string`)  
+* **dateFormat** (`string`)
   The default date format for the `{{date-picker-controls}}` component. If an associated `{{date-picker-input}}` specifies its own `dateFormat`, it will override this setting while that input is active.
-* **minYear** (`int|string|bool`, default: `false`)  
+* **minYear** (`int|string|bool`, default: `false`)
   The default minimum year for the `{{date-picker-controls}}` component. If an associated `{{date-picker-input}}` specifies its own `minYear`, it will override this setting while that input is active.
-* **maxYear** (`int|string|bool`, default: `false`)  
+* **maxYear** (`int|string|bool`, default: `false`)
   The default maximum year for the `{{date-picker-controls}}` component. If an associated `{{date-picker-input}}` specifies its own `maxYear`, it will override this setting while that input is active.
+
+
+This README outlines the details of collaborating on this Ember addon.
+
+## Installation
+
+* `git clone` this repository
+* `npm install`
+* `bower install`
+
+## Running
+
+* `ember server`
+* Visit your app at http://localhost:4200.
+
+## Running Tests
+
+* `ember test`
+* `ember test --server`
+
+## Building
+
+* `ember build`
+
+For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).

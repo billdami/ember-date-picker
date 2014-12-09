@@ -1,27 +1,17 @@
-# bower
-bower_components
+# See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# node
-node_modules
+# compiled output
+/dist
+/tmp
 
-# temporary/dev files and directories
-tmp
+# dependencies
+/node_modules
+/bower_components
 
-# sublime text
-*.sublime-workspace
-*.sublime-project
-
-# windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# osx
-.DS_Store
-.DS_Store?
-.AppleDouble
-.LSOverride
-.Spotlight-V100
-.Trashes
-._*
-Icon
+# misc
+/.sass-cache
+/connect.lock
+/coverage/*
+/libpeerconnection.log
+npm-debug.log
+testem.log
